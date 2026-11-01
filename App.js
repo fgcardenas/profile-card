@@ -1,5 +1,5 @@
 // Profile Card — practical task (React Native basics)
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 
 // Data to display. Do not change it.
 const BIO =
@@ -17,12 +17,21 @@ export default function App() {
   return (
     <View style={styles.screen}>
       <View style={styles.card}>
-        <Text style={styles.name}>Alex Rivera</Text>
-        <Text style={styles.role}>Mobile Developer</Text>
-        <Text style={styles.location}>Lisbon, Portugal</Text>
-        <Text style={styles.bio} numberOfLines={3}>
-          {BIO}
-        </Text>
+        <Image
+          source={require('./assets/banner.png')}
+          style={styles.banner}
+          resizeMode="cover"
+        />
+
+        <View style={styles.body}>
+          <Image source={require('./assets/avatar.png')} style={styles.avatar} />
+          <Text style={styles.name}>Alex Rivera</Text>
+          <Text style={styles.role}>Mobile Developer</Text>
+          <Text style={styles.location}>Lisbon, Portugal</Text>
+          <Text style={styles.bio} numberOfLines={3}>
+            {BIO}
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -37,7 +46,22 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#FFFFFF',
+  },
+  banner: {
+    width: '100%',
+    height: 120,
+  },
+  body: {
     padding: 20,
+  },
+  avatar: {
+    width: 96,
+    height: 96,
+    borderRadius: 48,
+    borderWidth: 4,
+    borderColor: '#FFFFFF',
+    marginTop: -48,
+    marginBottom: 12,
   },
   name: {
     fontSize: 24,
