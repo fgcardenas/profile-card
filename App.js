@@ -1,6 +1,5 @@
 // Profile Card — practical task (React Native basics)
-// Follow the steps in README.md and build your solution in this file.
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 // Data to display. Do not change it.
 const BIO =
@@ -17,12 +16,14 @@ const SKILLS = ['React Native', 'JavaScript', 'UI Design', 'Git', 'Flexbox'];
 export default function App() {
   return (
     <View style={styles.screen}>
-      {/* TODO STEP 1: build the card with View and Text (name, role, location, bio) */}
-      {/* TODO STEP 2: add the banner and the avatar with Image */}
-      {/* TODO STEP 3: header row and stats row with Flexbox */}
-      {/* TODO STEP 4: online badge, skill tags and action buttons (layout) */}
-      {/* TODO STEP 5: polish the styles (colors, typography, shadow) */}
-      <Text>TODO: build the profile card</Text>
+      <View style={styles.card}>
+        <Text style={styles.name}>Alex Rivera</Text>
+        <Text style={styles.role}>Mobile Developer</Text>
+        <Text style={styles.location}>Lisbon, Portugal</Text>
+        <Text style={styles.bio} numberOfLines={3}>
+          {BIO}
+        </Text>
+      </View>
     </View>
   );
 }
@@ -33,5 +34,24 @@ const styles = StyleSheet.create({
     paddingTop: 64,
     paddingHorizontal: 20,
     backgroundColor: '#EEF1F6',
+  },
+  card: {
+    backgroundColor: '#FFFFFF',
+    padding: 20,
+  },
+  name: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  role: {
+    fontSize: 16,
+  },
+  location: {
+    fontSize: 14,
+    color: '#6B7280',
+  },
+  bio: {
+    fontSize: 15,
+    marginTop: 12,
   },
 });
