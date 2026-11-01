@@ -24,13 +24,27 @@ export default function App() {
         />
 
         <View style={styles.body}>
-          <Image source={require('./assets/avatar.png')} style={styles.avatar} />
-          <Text style={styles.name}>Alex Rivera</Text>
-          <Text style={styles.role}>Mobile Developer</Text>
-          <Text style={styles.location}>Lisbon, Portugal</Text>
+          <View style={styles.header}>
+            <Image source={require('./assets/avatar.png')} style={styles.avatar} />
+            <View style={styles.headerText}>
+              <Text style={styles.name}>Alex Rivera</Text>
+              <Text style={styles.role}>Mobile Developer</Text>
+              <Text style={styles.location}>Lisbon, Portugal</Text>
+            </View>
+          </View>
+
           <Text style={styles.bio} numberOfLines={3}>
             {BIO}
           </Text>
+
+          <View style={styles.statsRow}>
+            {STATS.map((stat) => (
+              <View key={stat.label} style={styles.stat}>
+                <Text style={styles.statValue}>{stat.value}</Text>
+                <Text style={styles.statLabel}>{stat.label}</Text>
+              </View>
+            ))}
+          </View>
         </View>
       </View>
     </View>
@@ -54,14 +68,23 @@ const styles = StyleSheet.create({
   body: {
     padding: 20,
   },
+  header: {
+    flexDirection: 'row',
+    marginTop: -48,
+    marginBottom: 16,
+  },
   avatar: {
     width: 96,
     height: 96,
     borderRadius: 48,
     borderWidth: 4,
     borderColor: '#FFFFFF',
-    marginTop: -48,
-    marginBottom: 12,
+  },
+  headerText: {
+    flex: 1,
+    marginLeft: 14,
+    // the texts start below the banner (avatar overlaps it by 48)
+    marginTop: 52,
   },
   name: {
     fontSize: 24,
@@ -76,6 +99,26 @@ const styles = StyleSheet.create({
   },
   bio: {
     fontSize: 15,
-    marginTop: 12,
+    marginBottom: 16,
+  },
+  statsRow: {
+    flexDirection: 'row',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: '#E1E5EC',
+  },
+  stat: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: 12,
+  },
+  statValue: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  statLabel: {
+    fontSize: 12,
+    color: '#6B7280',
+    marginTop: 2,
   },
 });
