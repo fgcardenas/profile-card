@@ -1,5 +1,5 @@
 // Profile Card — practical task (React Native basics)
-import { View, Text, Image, StyleSheet, Platform } from 'react-native';
+import { View, Text, Image, StyleSheet, Platform, useWindowDimensions } from 'react-native';
 
 // Data to display. Do not change it.
 const BIO =
@@ -24,10 +24,30 @@ const COLORS = {
   online: '#22C55E',
 };
 
+function StatItem({ label, value, divider }) {
+  return (
+    <View style={[styles.stat, divider && styles.statDivider]}>
+      <Text style={styles.statValue}>{value}</Text>
+      <Text style={styles.statLabel}>{label}</Text>
+    </View>
+  );
+}
+
+function Tag({ label }) {
+  return (
+    <View style={styles.tag}>
+      <Text style={styles.tagText}>{label}</Text>
+    </View>
+  );
+}
+
 export default function App() {
+  const { width } = useWindowDimensions();
+  const isWide = width > 600;
+
   return (
     <View style={styles.screen}>
-      <View style={styles.card}>
+      <View style={[styles.card, isWide && styles.cardWide]}>
         <Image
           source={require('./assets/banner.png')}
           style={styles.banner}
@@ -53,21 +73,19 @@ export default function App() {
 
           <View style={styles.statsRow}>
             {STATS.map((stat, index) => (
-              <View
+              <StatItem
                 key={stat.label}
-                style={[styles.stat, index > 0 && styles.statDivider]}
-              >
-                <Text style={styles.statValue}>{stat.value}</Text>
-                <Text style={styles.statLabel}>{stat.label}</Text>
-              </View>
+                label={stat.label}
+                value={stat.value}
+                divider={index > 0}
+              />
             ))}
           </View>
 
+          <Text style={styles.sectionTitle}>Skills</Text>
           <View style={styles.tags}>
             {SKILLS.map((skill) => (
-              <View key={skill} style={styles.tag}>
-                <Text style={styles.tagText}>{skill}</Text>
-              </View>
+              <Tag key={skill} label={skill} />
             ))}
           </View>
 
@@ -107,6 +125,11 @@ const styles = StyleSheet.create({
         elevation: 6,
       },
     }),
+  },
+  cardWide: {
+    maxWidth: 420,
+    width: '100%',
+    alignSelf: 'center',
   },
   banner: {
     width: '100%',
@@ -195,6 +218,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: COLORS.muted,
     marginTop: 2,
+  },
+  sectionTitle: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: COLORS.muted,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+    marginBottom: 8,
   },
   tags: {
     flexDirection: 'row',
