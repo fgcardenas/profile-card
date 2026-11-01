@@ -25,7 +25,10 @@ export default function App() {
 
         <View style={styles.body}>
           <View style={styles.header}>
-            <Image source={require('./assets/avatar.png')} style={styles.avatar} />
+            <View style={styles.avatarWrapper}>
+              <Image source={require('./assets/avatar.png')} style={styles.avatar} />
+              <View style={styles.badge} />
+            </View>
             <View style={styles.headerText}>
               <Text style={styles.name}>Alex Rivera</Text>
               <Text style={styles.role}>Mobile Developer</Text>
@@ -44,6 +47,23 @@ export default function App() {
                 <Text style={styles.statLabel}>{stat.label}</Text>
               </View>
             ))}
+          </View>
+
+          <View style={styles.tags}>
+            {SKILLS.map((skill) => (
+              <View key={skill} style={styles.tag}>
+                <Text style={styles.tagText}>{skill}</Text>
+              </View>
+            ))}
+          </View>
+
+          <View style={styles.actions}>
+            <View style={[styles.button, styles.buttonPrimary]}>
+              <Text style={styles.buttonText}>Follow</Text>
+            </View>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Message</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -73,11 +93,26 @@ const styles = StyleSheet.create({
     marginTop: -48,
     marginBottom: 16,
   },
+  avatarWrapper: {
+    width: 96,
+    height: 96,
+  },
   avatar: {
     width: 96,
     height: 96,
     borderRadius: 48,
     borderWidth: 4,
+    borderColor: '#FFFFFF',
+  },
+  badge: {
+    position: 'absolute',
+    right: 4,
+    bottom: 4,
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    backgroundColor: '#22C55E',
+    borderWidth: 3,
     borderColor: '#FFFFFF',
   },
   headerText: {
@@ -106,6 +141,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#E1E5EC',
+    marginBottom: 16,
   },
   stat: {
     flex: 1,
@@ -120,5 +156,38 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#6B7280',
     marginTop: 2,
+  },
+  tags: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginBottom: 20,
+  },
+  tag: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    backgroundColor: '#E8EFFE',
+  },
+  tagText: {
+    fontSize: 13,
+    color: '#2F6FED',
+  },
+  actions: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  button: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderWidth: 1,
+    borderColor: '#2F6FED',
+  },
+  buttonPrimary: {
+    backgroundColor: '#2F6FED',
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
