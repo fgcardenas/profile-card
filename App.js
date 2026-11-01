@@ -1,5 +1,5 @@
 // Profile Card — practical task (React Native basics)
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Platform } from 'react-native';
 
 // Data to display. Do not change it.
 const BIO =
@@ -12,6 +12,17 @@ const STATS = [
 ];
 
 const SKILLS = ['React Native', 'JavaScript', 'UI Design', 'Git', 'Flexbox'];
+
+const COLORS = {
+  background: '#EEF1F6',
+  card: '#FFFFFF',
+  text: '#1B1F2A',
+  muted: '#6B7280',
+  primary: '#2F6FED',
+  primaryLight: '#E8EFFE',
+  border: '#E1E5EC',
+  online: '#22C55E',
+};
 
 export default function App() {
   return (
@@ -41,8 +52,11 @@ export default function App() {
           </Text>
 
           <View style={styles.statsRow}>
-            {STATS.map((stat) => (
-              <View key={stat.label} style={styles.stat}>
+            {STATS.map((stat, index) => (
+              <View
+                key={stat.label}
+                style={[styles.stat, index > 0 && styles.statDivider]}
+              >
                 <Text style={styles.statValue}>{stat.value}</Text>
                 <Text style={styles.statLabel}>{stat.label}</Text>
               </View>
@@ -59,10 +73,10 @@ export default function App() {
 
           <View style={styles.actions}>
             <View style={[styles.button, styles.buttonPrimary]}>
-              <Text style={styles.buttonText}>Follow</Text>
+              <Text style={[styles.buttonText, styles.buttonTextPrimary]}>Follow</Text>
             </View>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Message</Text>
+            <View style={[styles.button, styles.buttonOutline]}>
+              <Text style={[styles.buttonText, styles.buttonTextOutline]}>Message</Text>
             </View>
           </View>
         </View>
@@ -74,12 +88,25 @@ export default function App() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingTop: 64,
+    justifyContent: 'center',
     paddingHorizontal: 20,
-    backgroundColor: '#EEF1F6',
+    backgroundColor: COLORS.background,
   },
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    overflow: 'hidden',
+    ...Platform.select({
+      ios: {
+        shadowColor: COLORS.text,
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.12,
+        shadowRadius: 16,
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
   },
   banner: {
     width: '100%',
@@ -102,7 +129,7 @@ const styles = StyleSheet.create({
     height: 96,
     borderRadius: 48,
     borderWidth: 4,
-    borderColor: '#FFFFFF',
+    borderColor: COLORS.card,
   },
   badge: {
     position: 'absolute',
@@ -111,9 +138,9 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
     borderRadius: 9,
-    backgroundColor: '#22C55E',
+    backgroundColor: COLORS.online,
     borderWidth: 3,
-    borderColor: '#FFFFFF',
+    borderColor: COLORS.card,
   },
   headerText: {
     flex: 1,
@@ -124,23 +151,30 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: COLORS.text,
   },
   role: {
     fontSize: 16,
+    fontWeight: '600',
+    color: COLORS.primary,
+    marginTop: 2,
   },
   location: {
     fontSize: 14,
-    color: '#6B7280',
+    color: COLORS.muted,
+    marginTop: 2,
   },
   bio: {
     fontSize: 15,
+    lineHeight: 22,
+    color: COLORS.text,
     marginBottom: 16,
   },
   statsRow: {
     flexDirection: 'row',
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: '#E1E5EC',
+    borderColor: COLORS.border,
     marginBottom: 16,
   },
   stat: {
@@ -148,13 +182,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
   },
+  statDivider: {
+    borderLeftWidth: 1,
+    borderLeftColor: COLORS.border,
+  },
   statValue: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: COLORS.text,
   },
   statLabel: {
     fontSize: 12,
-    color: '#6B7280',
+    color: COLORS.muted,
     marginTop: 2,
   },
   tags: {
@@ -166,11 +205,13 @@ const styles = StyleSheet.create({
   tag: {
     paddingVertical: 6,
     paddingHorizontal: 12,
-    backgroundColor: '#E8EFFE',
+    borderRadius: 999,
+    backgroundColor: COLORS.primaryLight,
   },
   tagText: {
     fontSize: 13,
-    color: '#2F6FED',
+    fontWeight: '600',
+    color: COLORS.primary,
   },
   actions: {
     flexDirection: 'row',
@@ -180,14 +221,24 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingVertical: 12,
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#2F6FED',
+    borderColor: COLORS.primary,
   },
   buttonPrimary: {
-    backgroundColor: '#2F6FED',
+    backgroundColor: COLORS.primary,
+  },
+  buttonOutline: {
+    backgroundColor: COLORS.card,
   },
   buttonText: {
     fontSize: 16,
     fontWeight: '600',
+  },
+  buttonTextPrimary: {
+    color: COLORS.card,
+  },
+  buttonTextOutline: {
+    color: COLORS.primary,
   },
 });
